@@ -52,6 +52,12 @@ class ARViewController: UIViewController {
         box.firstMaterial?.diffuse.contents = UIColor.red
         let node = SCNNode(geometry: box)
         node.position = SCNVector3(0, 0, -1)
+        
+        let box2 = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+        box2.firstMaterial?.diffuse.contents = UIColor.green
+        let node2 = SCNNode(geometry: box2)
+        node2.position = SCNVector3(0, 0.4, 0)
+        node.addChildNode(node2)
         sceneView.scene.rootNode.addChildNode(node)
     }
 }
