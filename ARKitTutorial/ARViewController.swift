@@ -48,17 +48,29 @@ class ARViewController: UIViewController {
     }
     
     fileprivate func addNodes() {
-        let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-        box.firstMaterial?.diffuse.contents = UIColor.red
-        let node = SCNNode(geometry: box)
-        node.position = SCNVector3(0, 0, -1)
+        let parentNode = SCNNode()
+        parentNode.position = SCNVector3(0, 0, 0)
+        sceneView.scene.rootNode.addChildNode(parentNode)
         
-        let box2 = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
-        box2.firstMaterial?.diffuse.contents = UIColor.green
-        let node2 = SCNNode(geometry: box2)
-        node2.position = SCNVector3(0, 0.4, 0)
+        let sphere = SCNSphere(radius: 0.4)
+        sphere.firstMaterial?.diffuse.contents = UIColor.red
+        let node = SCNNode(geometry: sphere)
+        node.position = SCNVector3(0, 0, -2)
+        
+        let sphere2 = SCNSphere(radius: 0.1)
+        sphere2.firstMaterial?.diffuse.contents = UIColor.green
+        let node2 = SCNNode(geometry: sphere2)
+        node2.position = SCNVector3(0.0, 0.0, 0.8)
+        node.runAction(rotation(time: 5))
         node.addChildNode(node2)
-        sceneView.scene.rootNode.addChildNode(node)
+        parentNode.addChildNode(node)
+        parentNode.runAction(rotation(time: 15))
+    }
+    
+    fileprivate func rotation(time: TimeInterval) -> SCNAction {
+        let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: time)
+        let foreverRotation = SCNAction.repeatForever(rotation)
+        return foreverRotation
     }
 }
 
@@ -93,4 +105,8 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
     }
+}
+
+extension Int {
+    var degreesToRadians: Double { return Double(self) * .pi/180}
 }
