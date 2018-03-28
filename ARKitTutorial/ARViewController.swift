@@ -27,11 +27,7 @@ class ARViewController: UIViewController {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
-        // Create a new scene
-        let scene = SCNScene(named: "art.scnassets/ship.scn")!
-        
-        // Set the scene to the view
-        sceneView.scene = scene
+        addNodes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +45,14 @@ class ARViewController: UIViewController {
         
         // Pause the view's session
         sceneView.session.pause()
+    }
+    
+    fileprivate func addNodes() {
+        let box = SCNBox(width: 0.2, height: 0.2, length: 0.2, chamferRadius: 0)
+        box.firstMaterial?.diffuse.contents = UIColor.red
+        let node = SCNNode(geometry: box)
+        node.position = SCNVector3(0, 0, -1)
+        sceneView.scene.rootNode.addChildNode(node)
     }
 }
 
