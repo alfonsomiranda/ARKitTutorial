@@ -15,7 +15,7 @@ class ARViewController: UIViewController {
 
     @IBOutlet var sceneView: ARSCNView!
     
-    let planeHeight: CGFloat = 0.01
+    let planeHeight: CGFloat = 0.001
     var anchors = [ARAnchor]()
     
     override func viewDidLoad() {
@@ -35,6 +35,9 @@ class ARViewController: UIViewController {
         sceneView.automaticallyUpdatesLighting = true
         
         addNodes()
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,6 +86,34 @@ class ARViewController: UIViewController {
         let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: time)
         let foreverRotation = SCNAction.repeatForever(rotation)
         return foreverRotation
+    }
+    
+    fileprivate func addItem(hitTestResult: ARHitTestResult) {
+        let scene = SCNScene(named: "art.scnassets/ship.scn")
+        let node = (scene?.rootNode)!
+        
+        let transform = hitTestResult.worldTransform
+        let thirdColumn = transform.columns.3
+        
+        let parentNode = SCNNode()
+        parentNode.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
+        parentNode.name = "Parent"
+        
+        node.position = SCNVector3(0, 0.1, 0)
+        parentNode.addChildNode(node)
+        
+        self.sceneView.scene.rootNode.addChildNode(parentNode)
+    }
+    
+    @objc
+    fileprivate func tapped(sender: UITapGestureRecognizer) {
+        let sceneView = sender.view as! ARSCNView
+        let tapLocation = sender.location(in: sceneView)
+        
+        let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+        if !hitTest.isEmpty {
+            self.addItem(hitTestResult: hitTest.first!)
+        }
     }
 }
 
