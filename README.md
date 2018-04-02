@@ -1,5 +1,4 @@
 # ARKitTutorial
-ARKit tutorial
 
 - Initial project with ARKit and scenekit: https://github.com/alfonsomiranda/ARKitTutorial/tree/feature/InitialProject
 - Create a node in ARKit: https://github.com/alfonsomiranda/ARKitTutorial/tree/feature/nodes
