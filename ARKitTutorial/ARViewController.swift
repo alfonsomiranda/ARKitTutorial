@@ -26,6 +26,7 @@ class ARViewController: UIViewController {
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
+        sceneView.debugOptions = [ARSCNDebugOptions .showFeaturePoints]
         
         addNodes()
     }
@@ -35,6 +36,7 @@ class ARViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = .horizontal
         
         // Run the view's session
         sceneView.session.run(configuration)
@@ -86,7 +88,6 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
      }
      */
     
-    
     func session(_ session: ARSession, didFailWithError error: Error) {
         // Present an error message to the user
         
@@ -103,7 +104,16 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        
+        guard anchor is ARPlaneAnchor else {return}
+        debugPrint("Plane detected!!!")
+//        DispatchQueue.main.async {
+//            self.planeDetected.isHidden = false
+//            self.planeDetected.text = "Plane detected!!"
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.planeDetected.isHidden = true
+//            self.planeDetected.text = ""
+//        }
     }
 }
 
