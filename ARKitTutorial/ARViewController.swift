@@ -27,6 +27,9 @@ class ARViewController: UIViewController {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+        
         addNodes()
     }
     
@@ -53,12 +56,16 @@ class ARViewController: UIViewController {
         sceneView.scene.rootNode.addChildNode(parentNode)
         
         let sphere = SCNSphere(radius: 0.4)
-        sphere.firstMaterial?.diffuse.contents = UIColor.red
+        sphere.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Earth day")
+        sphere.firstMaterial?.specular.contents = #imageLiteral(resourceName: "Earth Specular")
+        sphere.firstMaterial?.emission.contents = #imageLiteral(resourceName: "Earth Emission")
+        sphere.firstMaterial?.normal.contents = #imageLiteral(resourceName: "Earth Normal")
+        
         let node = SCNNode(geometry: sphere)
         node.position = SCNVector3(0, 0, -2)
         
         let sphere2 = SCNSphere(radius: 0.1)
-        sphere2.firstMaterial?.diffuse.contents = UIColor.green
+        sphere2.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "moon Diffuse")
         let node2 = SCNNode(geometry: sphere2)
         node2.position = SCNVector3(0.0, 0.0, 0.8)
         node.runAction(rotation(time: 5))
