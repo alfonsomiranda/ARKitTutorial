@@ -53,7 +53,7 @@ class ARViewController: UIViewController {
     fileprivate func addNodes() {
         let sun = SCNNode(geometry: SCNSphere(radius: 0.35))
         sun.position = SCNVector3(0,0,-2)
-        sun.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
+        sun.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Sun diffuse")
         
         let earthParent = SCNNode()
         earthParent.position = SCNVector3(0,0,-2)
@@ -63,11 +63,14 @@ class ARViewController: UIViewController {
         
         let earth = SCNNode(geometry: SCNSphere(radius: 0.2))
         earth.position = SCNVector3(1.2 ,0 , 0)
-        earth.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        earth.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Earth day")
+        earth.geometry?.firstMaterial?.specular.contents = #imageLiteral(resourceName: "Earth Specular")
+        earth.geometry?.firstMaterial?.emission.contents = #imageLiteral(resourceName: "Earth Emission")
+        earth.geometry?.firstMaterial?.normal.contents = #imageLiteral(resourceName: "Earth Normal")
         
         let moon = SCNNode(geometry: SCNSphere(radius: 0.05))
         moon.position = SCNVector3(0,0,-0.3)
-        moon.geometry?.firstMaterial?.diffuse.contents = UIColor.gray
+        moon.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "moon Diffuse")
         
         self.sceneView.scene.rootNode.addChildNode(sun)
         self.sceneView.scene.rootNode.addChildNode(earthParent)
