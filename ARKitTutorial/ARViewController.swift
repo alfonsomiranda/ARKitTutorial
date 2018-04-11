@@ -27,6 +27,9 @@ class ARViewController: UIViewController {
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
         
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.automaticallyUpdatesLighting = true
+        
         addNodes()
     }
     
