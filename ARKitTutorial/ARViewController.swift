@@ -51,27 +51,40 @@ class ARViewController: UIViewController {
     }
     
     fileprivate func addNodes() {
-        let parentNode = SCNNode()
-        parentNode.position = SCNVector3(0, 0, 0)
-        sceneView.scene.rootNode.addChildNode(parentNode)
+        let sun = SCNNode(geometry: SCNSphere(radius: 0.35))
+        sun.position = SCNVector3(0,0,-2)
+        sun.geometry?.firstMaterial?.diffuse.contents = UIColor.yellow
         
-        let sphere = SCNSphere(radius: 0.4)
-        sphere.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Earth day")
-        sphere.firstMaterial?.specular.contents = #imageLiteral(resourceName: "Earth Specular")
-        sphere.firstMaterial?.emission.contents = #imageLiteral(resourceName: "Earth Emission")
-        sphere.firstMaterial?.normal.contents = #imageLiteral(resourceName: "Earth Normal")
+        let earthParent = SCNNode()
+        earthParent.position = SCNVector3(0,0,-2)
         
-        let node = SCNNode(geometry: sphere)
-        node.position = SCNVector3(0, 0, -2)
+        let moonParent = SCNNode()
+        moonParent.position = SCNVector3(1.2 ,0 , 0)
         
-        let sphere2 = SCNSphere(radius: 0.1)
-        sphere2.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "moon Diffuse")
-        let node2 = SCNNode(geometry: sphere2)
-        node2.position = SCNVector3(0.0, 0.0, 0.8)
-        node.runAction(rotation(time: 5))
-        node.addChildNode(node2)
-        parentNode.addChildNode(node)
-        parentNode.runAction(rotation(time: 15))
+        let earth = SCNNode(geometry: SCNSphere(radius: 0.2))
+        earth.position = SCNVector3(1.2 ,0 , 0)
+        earth.geometry?.firstMaterial?.diffuse.contents = UIColor.blue
+        
+        let moon = SCNNode(geometry: SCNSphere(radius: 0.05))
+        moon.position = SCNVector3(0,0,-0.3)
+        moon.geometry?.firstMaterial?.diffuse.contents = UIColor.gray
+        
+        self.sceneView.scene.rootNode.addChildNode(sun)
+        self.sceneView.scene.rootNode.addChildNode(earthParent)
+        
+        earthParent.addChildNode(earth)
+        earthParent.addChildNode(moonParent)
+        moonParent.addChildNode(moon)
+        
+        let sunAction = rotation(time: 8)
+        let earthParentRotation = rotation(time: 14)
+        let earthRotation = rotation(time: 8)
+        let moonRotation = rotation(time: 5)
+        
+        earth.runAction(earthRotation)
+        earthParent.runAction(earthParentRotation)
+        moonParent.runAction(moonRotation)
+        sun.runAction(sunAction)
     }
     
     fileprivate func rotation(time: TimeInterval) -> SCNAction {
