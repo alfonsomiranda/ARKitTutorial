@@ -17,6 +17,7 @@ class ARViewController: UIViewController {
     
     let planeHeight: CGFloat = 0.01
     var anchors = [ARAnchor]()
+    var node: SCNNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class ARViewController: UIViewController {
         
         // Create a session configuration
         let configuration = ARWorldTrackingConfiguration()
-        configuration.planeDetection = [.horizontal, .vertical]
+        configuration.planeDetection = .horizontal
         
         // Run the view's session
         sceneView.session.run(configuration)
@@ -130,26 +131,28 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
     }
     
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        guard anchor is ARPlaneAnchor else {return}
-        debugPrint("Plane detected!!!")
+        guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
+        
+        let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
+        plane.materials.first?.diffuse.contents = #imageLiteral(resourceName: "Stars")
+        let planeNode = SCNNode(geometry: plane)
+        
+        planeNode.position = SCNVector3(CGFloat(planeAnchor.center.x), CGFloat(planeAnchor.center.y), CGFloat(planeAnchor.center.z))
+        planeNode.eulerAngles.x = -.pi / 2
+        
+        node.addChildNode(planeNode)
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-        var node:  SCNNode?
-        if let planeAnchor = anchor as? ARPlaneAnchor {
-            node = SCNNode()
-            let planeGeometry = SCNBox(width: CGFloat(planeAnchor.extent.x), height: planeHeight, length: CGFloat(planeAnchor.extent.z), chamferRadius: 0.0)
-            planeGeometry.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Stars")
-            let planeNode = SCNNode(geometry: planeGeometry)
-            planeNode.position = SCNVector3Make(planeAnchor.center.x, Float(planeHeight / 2), planeAnchor.center.z)
-            node?.addChildNode(planeNode)
-            anchors.append(planeAnchor)
-            
-        } else {
-            // haven't encountered this scenario yet
-            print("not plane anchor \(anchor)")
-        }
-        return node
+    func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let planeAnchor = anchor as?  ARPlaneAnchor,
+            let planeNode = node.childNodes.first,
+            let plane = planeNode.geometry as? SCNPlane
+            else { return }
+        
+        plane.width = CGFloat(planeAnchor.extent.x)
+        plane.height = CGFloat(planeAnchor.extent.z)
+        
+        planeNode.position = SCNVector3(CGFloat(planeAnchor.center.x), CGFloat(planeAnchor.center.y), CGFloat(planeAnchor.center.z))
     }
 }
 
