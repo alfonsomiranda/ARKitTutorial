@@ -112,14 +112,9 @@ class ARViewController: UIViewController {
         let transform = hitTestResult.worldTransform
         let thirdColumn = transform.columns.3
         
-        let parentNode = SCNNode()
-        parentNode.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
-        parentNode.name = "Parent"
+        node.position = SCNVector3(thirdColumn.x, thirdColumn.y + 0.1, thirdColumn.z)
         
-        node.position = SCNVector3(0, 0.1, 0)
-        parentNode.addChildNode(node)
-        
-        self.sceneView.scene.rootNode.addChildNode(parentNode)
+        self.sceneView.scene.rootNode.addChildNode(node)
     }
     
     @objc
