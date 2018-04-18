@@ -39,6 +39,9 @@ class ARViewController: UIViewController {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+        
+        let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateModel))
+        sceneView.addGestureRecognizer(rotationGesture)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,7 +115,7 @@ class ARViewController: UIViewController {
         let transform = hitTestResult.worldTransform
         let thirdColumn = transform.columns.3
         
-        node.position = SCNVector3(thirdColumn.x, thirdColumn.y + 0.1, thirdColumn.z)
+        node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
         
         self.sceneView.scene.rootNode.addChildNode(node)
     }
@@ -125,6 +128,55 @@ class ARViewController: UIViewController {
         let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
         if !hitTest.isEmpty {
             self.addItem(hitTestResult: hitTest.first!)
+        }
+    }
+    
+    @objc func panGesture(recognizer: UIPanGestureRecognizer) {
+        let sceneView = recognizer.view as! ARSCNView
+        let touchLocation = recognizer.location(in: sceneView)
+        
+        let hitTestResult = sceneView.hitTest(touchLocation, options: [:])
+        
+        if !hitTestResult.isEmpty {
+            guard let hitResult = hitTestResult.first else {
+                return
+            }
+            
+            let node = hitResult.node
+            
+            let translation = recognizer.translation(in: recognizer.view!)
+            
+            let x = Float(translation.x)
+            let y = Float(-translation.y)
+            
+            let anglePan = sqrt(pow(x, 2) + pow(y, 2)) * (Float)(Double.pi)/180.0
+            
+            var rotationVector = SCNVector4()
+            rotationVector.x = 0//-y
+            rotationVector.y = x
+            rotationVector.z = 0
+            rotationVector.w = anglePan
+            
+            node.rotation = rotationVector
+        }
+    }
+    
+    private var originalRotation: SCNVector3?
+    
+    @objc private func rotateModel(_ gesture: UIRotationGestureRecognizer) {
+        let location = gesture.location(in: sceneView)
+        
+        guard let node = sceneView.hitTest(location, options: nil).first?.node else { return }
+        
+        switch gesture.state {
+        case .began:
+            originalRotation = node.eulerAngles
+        case .changed:
+            guard var originalRotation = originalRotation else { return }
+            originalRotation.y -= Float(gesture.rotation)
+            node.eulerAngles = originalRotation
+        default:
+            originalRotation = nil
         }
     }
 }
