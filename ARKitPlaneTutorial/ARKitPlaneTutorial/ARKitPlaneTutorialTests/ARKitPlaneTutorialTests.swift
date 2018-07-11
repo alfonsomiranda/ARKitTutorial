@@ -1,15 +1,15 @@
 //
-//  ARKitTutorialTests.swift
-//  ARKitTutorialTests
+//  ARKitPlaneTutorialTests.swift
+//  ARKitPlaneTutorialTests
 //
-//  Created by Alfonso Miranda Castro on 29/1/18.
-//  Copyright © 2018 alfonsomiranda. All rights reserved.
+//  Created by Alfonso Miranda Castro on 10/7/18.
+//  Copyright © 2018 Alfonso Miranda Castro. All rights reserved.
 //
 
 import XCTest
-@testable import ARKitTutorial
+@testable import ARKitPlaneTutorial
 
-class ARKitTutorialTests: XCTestCase {
+class ARKitPlaneTutorialTests: XCTestCase {
     
     override func setUp() {
         super.setUp()

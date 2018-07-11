@@ -1,24 +1,18 @@
 //
-//  ARViewController.swift
-//  ARKitTutorial
+//  ViewController.swift
+//  ARKitPlaneTutorial
 //
-//  Created by Alfonso Miranda Castro on 27/3/18.
-//  Copyright © 2018 alfonsomiranda. All rights reserved.
+//  Created by Alfonso Miranda Castro on 10/7/18.
+//  Copyright © 2018 Alfonso Miranda Castro. All rights reserved.
 //
 
 import UIKit
 import ARKit
-import SceneKit
 
-
-class ARViewController: UIViewController {
-
+class ViewController: UIViewController, ARSessionDelegate {
+    
     @IBOutlet var sceneView: ARSCNView!
-    
-    let planeHeight: CGFloat = 0.001
-    var anchors = [ARAnchor]()
-    var node: SCNNode?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,15 +29,13 @@ class ARViewController: UIViewController {
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
         
-        addNodes()
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
         self.sceneView.addGestureRecognizer(tapGestureRecognizer)
         
         let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateModel))
         sceneView.addGestureRecognizer(rotationGesture)
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -55,71 +47,6 @@ class ARViewController: UIViewController {
         sceneView.session.run(configuration)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        // Pause the view's session
-        sceneView.session.pause()
-    }
-    
-    fileprivate func addNodes() {
-        let sun = SCNNode(geometry: SCNSphere(radius: 0.35))
-        sun.position = SCNVector3(0,0,-2)
-        sun.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Sun diffuse")
-        
-        let earthParent = SCNNode()
-        earthParent.position = SCNVector3(0,0,-2)
-        
-        let moonParent = SCNNode()
-        moonParent.position = SCNVector3(1.2 ,0 , 0)
-        
-        let earth = SCNNode(geometry: SCNSphere(radius: 0.2))
-        earth.position = SCNVector3(1.2 ,0 , 0)
-        earth.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Earth day")
-        earth.geometry?.firstMaterial?.specular.contents = #imageLiteral(resourceName: "Earth Specular")
-        earth.geometry?.firstMaterial?.emission.contents = #imageLiteral(resourceName: "Earth Emission")
-        earth.geometry?.firstMaterial?.normal.contents = #imageLiteral(resourceName: "Earth Normal")
-        
-        let moon = SCNNode(geometry: SCNSphere(radius: 0.05))
-        moon.position = SCNVector3(0,0,-0.3)
-        moon.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "moon Diffuse")
-        
-        self.sceneView.scene.rootNode.addChildNode(sun)
-        self.sceneView.scene.rootNode.addChildNode(earthParent)
-        
-        earthParent.addChildNode(earth)
-        earthParent.addChildNode(moonParent)
-        moonParent.addChildNode(moon)
-        
-        let sunAction = rotation(time: 8)
-        let earthParentRotation = rotation(time: 14)
-        let earthRotation = rotation(time: 8)
-        let moonRotation = rotation(time: 5)
-        
-        earth.runAction(earthRotation)
-        earthParent.runAction(earthParentRotation)
-        moonParent.runAction(moonRotation)
-        sun.runAction(sunAction)
-    }
-    
-    fileprivate func rotation(time: TimeInterval) -> SCNAction {
-        let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: time)
-        let foreverRotation = SCNAction.repeatForever(rotation)
-        return foreverRotation
-    }
-    
-    fileprivate func addItem(hitTestResult: ARHitTestResult) {
-        let scene = SCNScene(named: "art.scnassets/ship.scn")
-        let node = (scene?.rootNode)!
-        
-        let transform = hitTestResult.worldTransform
-        let thirdColumn = transform.columns.3
-        
-        node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
-        
-        self.sceneView.scene.rootNode.addChildNode(node)
-    }
-    
     @objc
     fileprivate func tapped(sender: UITapGestureRecognizer) {
         let sceneView = sender.view as! ARSCNView
@@ -129,6 +56,18 @@ class ARViewController: UIViewController {
         if !hitTest.isEmpty {
             self.addItem(hitTestResult: hitTest.first!)
         }
+    }
+    
+    fileprivate func addItem(hitTestResult: ARHitTestResult) {
+        let scene = SCNScene(named: "Models.scnassets/cup.scn")
+        let node = (scene?.rootNode)!
+        
+        let transform = hitTestResult.worldTransform
+        let thirdColumn = transform.columns.3
+        
+        node.position = SCNVector3(thirdColumn.x, thirdColumn.y + 0.1, thirdColumn.z)
+        
+        self.sceneView.scene.rootNode.addChildNode(node)
     }
     
     @objc func panGesture(recognizer: UIPanGestureRecognizer) {
@@ -179,40 +118,15 @@ class ARViewController: UIViewController {
             originalRotation = nil
         }
     }
+
 }
 
-extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
-    // MARK: - ARSCNViewDelegate
-    
-    /*
-     // Override to create and configure nodes for anchors added to the view's session.
-     func renderer(_ renderer: SCNSceneRenderer, nodeFor anchor: ARAnchor) -> SCNNode? {
-     let node = SCNNode()
-     
-     return node
-     }
-     */
-    
-    func session(_ session: ARSession, didFailWithError error: Error) {
-        // Present an error message to the user
-        
-    }
-    
-    func sessionWasInterrupted(_ session: ARSession) {
-        // Inform the user that the session has been interrupted, for example, by presenting an overlay
-        
-    }
-    
-    func sessionInterruptionEnded(_ session: ARSession) {
-        // Reset tracking and/or remove existing anchors if consistent tracking is required
-        
-    }
-    
+extension ViewController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         guard let planeAnchor = anchor as? ARPlaneAnchor else { return }
         
         let plane = SCNPlane(width: CGFloat(planeAnchor.extent.x), height: CGFloat(planeAnchor.extent.z))
-        plane.materials.first?.diffuse.contents = #imageLiteral(resourceName: "Stars")
+        plane.materials.first?.diffuse.contents = UIColor.red
         let planeNode = SCNNode(geometry: plane)
         
         planeNode.position = SCNVector3(CGFloat(planeAnchor.center.x), CGFloat(planeAnchor.center.y), CGFloat(planeAnchor.center.z))
@@ -232,8 +146,4 @@ extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
         
         planeNode.position = SCNVector3(CGFloat(planeAnchor.center.x), CGFloat(planeAnchor.center.y), CGFloat(planeAnchor.center.z))
     }
-}
-
-extension Int {
-    var degreesToRadians: Double { return Double(self) * .pi/180}
 }
