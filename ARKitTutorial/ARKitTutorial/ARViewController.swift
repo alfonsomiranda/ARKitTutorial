@@ -34,8 +34,6 @@ class ARViewController: UIViewController {
         
         sceneView.autoenablesDefaultLighting = true
         sceneView.automaticallyUpdatesLighting = true
-        
-        addNodes()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,51 +54,6 @@ class ARViewController: UIViewController {
         sceneView.session.pause()
     }
     
-    fileprivate func addNodes() {
-        let sun = SCNNode(geometry: SCNSphere(radius: 0.35))
-        sun.position = SCNVector3(0,0,-2)
-        sun.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Sun diffuse")
-        
-        let earthParent = SCNNode()
-        earthParent.position = SCNVector3(0,0,-2)
-        
-        let moonParent = SCNNode()
-        moonParent.position = SCNVector3(1.2 ,0 , 0)
-        
-        let earth = SCNNode(geometry: SCNSphere(radius: 0.2))
-        earth.position = SCNVector3(1.2 ,0 , 0)
-        earth.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "Earth day")
-        earth.geometry?.firstMaterial?.specular.contents = #imageLiteral(resourceName: "Earth Specular")
-        earth.geometry?.firstMaterial?.emission.contents = #imageLiteral(resourceName: "Earth Emission")
-        earth.geometry?.firstMaterial?.normal.contents = #imageLiteral(resourceName: "Earth Normal")
-        
-        let moon = SCNNode(geometry: SCNSphere(radius: 0.05))
-        moon.position = SCNVector3(0,0,-0.3)
-        moon.geometry?.firstMaterial?.diffuse.contents = #imageLiteral(resourceName: "moon Diffuse")
-        
-        self.sceneView.scene.rootNode.addChildNode(sun)
-        self.sceneView.scene.rootNode.addChildNode(earthParent)
-        
-        earthParent.addChildNode(earth)
-        earthParent.addChildNode(moonParent)
-        moonParent.addChildNode(moon)
-        
-        let sunAction = rotation(time: 8)
-        let earthParentRotation = rotation(time: 14)
-        let earthRotation = rotation(time: 8)
-        let moonRotation = rotation(time: 5)
-        
-        earth.runAction(earthRotation)
-        earthParent.runAction(earthParentRotation)
-        moonParent.runAction(moonRotation)
-        sun.runAction(sunAction)
-    }
-    
-    fileprivate func rotation(time: TimeInterval) -> SCNAction {
-        let rotation = SCNAction.rotateBy(x: 0, y: CGFloat(360.degreesToRadians), z: 0, duration: time)
-        let foreverRotation = SCNAction.repeatForever(rotation)
-        return foreverRotation
-    }
 }
 
 extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
