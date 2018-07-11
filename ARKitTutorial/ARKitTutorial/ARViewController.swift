@@ -37,8 +37,6 @@ class ARViewController: UIViewController {
         
         addNodes()
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
-        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,28 +103,6 @@ class ARViewController: UIViewController {
         return foreverRotation
     }
     
-    fileprivate func addItem(hitTestResult: ARHitTestResult) {
-        let scene = SCNScene(named: "art.scnassets/ship.scn")
-        let node = (scene?.rootNode)!
-        
-        let transform = hitTestResult.worldTransform
-        let thirdColumn = transform.columns.3
-        
-        node.position = SCNVector3(thirdColumn.x, thirdColumn.y + 0.1, thirdColumn.z)
-        
-        self.sceneView.scene.rootNode.addChildNode(node)
-    }
-    
-    @objc
-    fileprivate func tapped(sender: UITapGestureRecognizer) {
-        let sceneView = sender.view as! ARSCNView
-        let tapLocation = sender.location(in: sceneView)
-        
-        let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
-        if !hitTest.isEmpty {
-            self.addItem(hitTestResult: hitTest.first!)
-        }
-    }
 }
 
 extension ARViewController: ARSCNViewDelegate, ARSessionDelegate {
