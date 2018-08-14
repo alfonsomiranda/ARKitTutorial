@@ -14,26 +14,7 @@
 		B35ECBF5201F6F84006D2A3D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35ECBF3201F6F84006D2A3D /* Main.storyboard */; };
 		B35ECBF7201F6F84006D2A3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B35ECBF6201F6F84006D2A3D /* Assets.xcassets */; };
 		B35ECBFA201F6F84006D2A3D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B35ECBF8201F6F84006D2A3D /* LaunchScreen.storyboard */; };
-		B35ECC05201F6F84006D2A3D /* ARKitTutorialTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35ECC04201F6F84006D2A3D /* ARKitTutorialTests.swift */; };
-		B35ECC10201F6F84006D2A3D /* ARKitTutorialUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35ECC0F201F6F84006D2A3D /* ARKitTutorialUITests.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		B35ECC01201F6F84006D2A3D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B35ECBE2201F6F83006D2A3D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B35ECBE9201F6F84006D2A3D;
-			remoteInfo = ARKitTutorial;
-		};
-		B35ECC0C201F6F84006D2A3D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B35ECBE2201F6F83006D2A3D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B35ECBE9201F6F84006D2A3D;
-			remoteInfo = ARKitTutorial;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B31511F1206A83DE0054740B /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
@@ -45,30 +26,14 @@
 		B35ECBF6201F6F84006D2A3D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B35ECBF9201F6F84006D2A3D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B35ECBFB201F6F84006D2A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B35ECC00201F6F84006D2A3D /* ARKitTutorialTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARKitTutorialTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35ECC04201F6F84006D2A3D /* ARKitTutorialTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKitTutorialTests.swift; sourceTree = "<group>"; };
 		B35ECC06201F6F84006D2A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B35ECC0B201F6F84006D2A3D /* ARKitTutorialUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ARKitTutorialUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35ECC0F201F6F84006D2A3D /* ARKitTutorialUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARKitTutorialUITests.swift; sourceTree = "<group>"; };
 		B35ECC11201F6F84006D2A3D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B35ECBE7201F6F84006D2A3D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B35ECBFD201F6F84006D2A3D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B35ECC08201F6F84006D2A3D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -92,8 +57,6 @@
 			isa = PBXGroup;
 			children = (
 				B35ECBEA201F6F84006D2A3D /* ARKitTutorial.app */,
-				B35ECC00201F6F84006D2A3D /* ARKitTutorialTests.xctest */,
-				B35ECC0B201F6F84006D2A3D /* ARKitTutorialUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,42 +114,6 @@
 			productReference = B35ECBEA201F6F84006D2A3D /* ARKitTutorial.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B35ECBFF201F6F84006D2A3D /* ARKitTutorialTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B35ECC17201F6F84006D2A3D /* Build configuration list for PBXNativeTarget "ARKitTutorialTests" */;
-			buildPhases = (
-				B35ECBFC201F6F84006D2A3D /* Sources */,
-				B35ECBFD201F6F84006D2A3D /* Frameworks */,
-				B35ECBFE201F6F84006D2A3D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B35ECC02201F6F84006D2A3D /* PBXTargetDependency */,
-			);
-			name = ARKitTutorialTests;
-			productName = ARKitTutorialTests;
-			productReference = B35ECC00201F6F84006D2A3D /* ARKitTutorialTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B35ECC0A201F6F84006D2A3D /* ARKitTutorialUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B35ECC1A201F6F84006D2A3D /* Build configuration list for PBXNativeTarget "ARKitTutorialUITests" */;
-			buildPhases = (
-				B35ECC07201F6F84006D2A3D /* Sources */,
-				B35ECC08201F6F84006D2A3D /* Frameworks */,
-				B35ECC09201F6F84006D2A3D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B35ECC0D201F6F84006D2A3D /* PBXTargetDependency */,
-			);
-			name = ARKitTutorialUITests;
-			productName = ARKitTutorialUITests;
-			productReference = B35ECC0B201F6F84006D2A3D /* ARKitTutorialUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -199,17 +126,8 @@
 				TargetAttributes = {
 					B35ECBE9201F6F84006D2A3D = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
-					};
-					B35ECBFF201F6F84006D2A3D = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B35ECBE9201F6F84006D2A3D;
-					};
-					B35ECC0A201F6F84006D2A3D = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = B35ECBE9201F6F84006D2A3D;
 					};
 				};
 			};
@@ -227,8 +145,6 @@
 			projectRoot = "";
 			targets = (
 				B35ECBE9201F6F84006D2A3D /* ARKitTutorial */,
-				B35ECBFF201F6F84006D2A3D /* ARKitTutorialTests */,
-				B35ECC0A201F6F84006D2A3D /* ARKitTutorialUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -246,20 +162,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B35ECBFE201F6F84006D2A3D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B35ECC09201F6F84006D2A3D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -272,36 +174,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B35ECBFC201F6F84006D2A3D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B35ECC05201F6F84006D2A3D /* ARKitTutorialTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B35ECC07201F6F84006D2A3D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				B35ECC10201F6F84006D2A3D /* ARKitTutorialUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B35ECC02201F6F84006D2A3D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B35ECBE9201F6F84006D2A3D /* ARKitTutorial */;
-			targetProxy = B35ECC01201F6F84006D2A3D /* PBXContainerItemProxy */;
-		};
-		B35ECC0D201F6F84006D2A3D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B35ECBE9201F6F84006D2A3D /* ARKitTutorial */;
-			targetProxy = B35ECC0C201F6F84006D2A3D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B35ECBF3201F6F84006D2A3D /* Main.storyboard */ = {
@@ -446,7 +319,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -463,78 +336,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorial;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		B35ECC18201F6F84006D2A3D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WL6US8YZDF;
-				INFOPLIST_FILE = ARKitTutorialTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorialTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARKitTutorial.app/ARKitTutorial";
-			};
-			name = Debug;
-		};
-		B35ECC19201F6F84006D2A3D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WL6US8YZDF;
-				INFOPLIST_FILE = ARKitTutorialTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorialTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ARKitTutorial.app/ARKitTutorial";
-			};
-			name = Release;
-		};
-		B35ECC1B201F6F84006D2A3D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WL6US8YZDF;
-				INFOPLIST_FILE = ARKitTutorialUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorialUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ARKitTutorial;
-			};
-			name = Debug;
-		};
-		B35ECC1C201F6F84006D2A3D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = WL6US8YZDF;
-				INFOPLIST_FILE = ARKitTutorialUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.alfonsomiranda.ARKitTutorialUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = ARKitTutorial;
 			};
 			name = Release;
 		};
@@ -555,24 +358,6 @@
 			buildConfigurations = (
 				B35ECC15201F6F84006D2A3D /* Debug */,
 				B35ECC16201F6F84006D2A3D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B35ECC17201F6F84006D2A3D /* Build configuration list for PBXNativeTarget "ARKitTutorialTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B35ECC18201F6F84006D2A3D /* Debug */,
-				B35ECC19201F6F84006D2A3D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B35ECC1A201F6F84006D2A3D /* Build configuration list for PBXNativeTarget "ARKitTutorialUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B35ECC1B201F6F84006D2A3D /* Debug */,
-				B35ECC1C201F6F84006D2A3D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
