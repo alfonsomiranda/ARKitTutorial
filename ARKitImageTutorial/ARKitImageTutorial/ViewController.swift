@@ -37,7 +37,7 @@ extension ViewController: ARSCNViewDelegate {
         
         let plane = SCNPlane(width: referenceImage.physicalSize.width, height: referenceImage.physicalSize.height)
         let planeNode = SCNNode(geometry: plane)
-        planeNode.opacity = 0.25
+        planeNode.opacity = 0.25  
         
         planeNode.eulerAngles.x = -.pi / 2
         node.addChildNode(planeNode)

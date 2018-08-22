@@ -16,11 +16,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
     
+    var isDetected: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set the view's delegate
         sceneView.delegate = self
+        
+        sceneView.session.delegate = self
         
         // Show statistics such as fps and timing information
         sceneView.showsStatistics = true
@@ -74,7 +78,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
 extension ViewController: ARSessionDelegate {
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        
         // Create a Barcode Detection Request
         let request = VNDetectBarcodesRequest { (request, error) in
             // Get the first result out of the results, if there are any
@@ -92,35 +95,29 @@ extension ViewController: ARSessionDelegate {
                     
                     // If we have a result, process it
                     if let hitTestResult = hitTestResults.first {
-                        
-                        let plane = SCNPlane(width: 0.1, height: 0.1)
-                        let material = SCNMaterial()
-                        material.diffuse.contents = UIColor.red
-                        plane.materials = [material]
-                        
-                        let qrNode = SCNNode()
-                        
-                        
-                        
-                        //self.parentNode.transform = SCNMatrix4MakeRotation(-Float.pi / 2, 1, 0, 0)
-                        
-                        qrNode.position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
-                                                              hitTestResult.worldTransform.columns.3.y,
-                                                              hitTestResult.worldTransform.columns.3.z)
-                        
-                        
-                        self.sceneView.scene.rootNode.addChildNode(qrNode)
-                        
-                        
-                        let detectedDataAnchor = ARAnchor(transform: hitTestResult.worldTransform)
-                        self.sceneView.session.add(anchor: detectedDataAnchor)
-                        
-                        
-                        DispatchQueue.main.async {
-                            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                            
+                        DispatchQueue.main.async {                            
                             if let payLoadString = result.payloadStringValue {
-                                debugPrint(payLoadString)
+                                if !self.isDetected {
+                                    debugPrint(payLoadString)
+                                    self.isDetected = true
+                                    
+                                    let plane = SCNPlane(width: 0.1, height: 0.1)
+                                    let material = SCNMaterial()
+                                    material.diffuse.contents = UIColor.red
+                                    plane.materials = [material]
+                                    
+                                    let qrNode = SCNNode(geometry: plane)
+                                    
+                                    qrNode.position = SCNVector3(hitTestResult.worldTransform.columns.3.x,
+                                                                 hitTestResult.worldTransform.columns.3.y,
+                                                                 hitTestResult.worldTransform.columns.3.z)
+                                    
+                                    self.sceneView.scene.rootNode.addChildNode(qrNode)
+                                    
+                                    
+                                    let detectedDataAnchor = ARAnchor(transform: hitTestResult.worldTransform)
+                                    self.sceneView.session.add(anchor: detectedDataAnchor)
+                                }
                             }
                         }
                         
@@ -140,21 +137,5 @@ extension ViewController: ARSessionDelegate {
                 return print("Could not perform barcode-request!")
             }
         }
-        
-        //        // Process the request in the background
-        //        DispatchQueue.global(qos: .userInitiated).async {
-        //            do {
-        //                // Set it to recognize QR code only
-        //                request.symbologies = [.QR]
-        //
-        //                // Create a request handler using the captured image from the ARFrame
-        //                let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: frame.capturedImage,
-        //                                                                options: [:])
-        //                // Process the request
-        //                try imageRequestHandler.perform([request])
-        //            } catch {
-        //
-        //            }
-        //        }
     }
 }
