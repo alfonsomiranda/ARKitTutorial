@@ -8,3 +8,4 @@
 - Detect planes: https://github.com/alfonsomiranda/ARKitTutorial/tree/feature/planes
 - Add objects in a plane: https://github.com/alfonsomiranda/ARKitTutorial/tree/feature/objectInPlane
 - Rotate objects in a plane: https://github.com/alfonsomiranda/ARKitTutorial/tree/feature/rotateObjectsInPlane
+- Detect images: https://github.com/alfonsomiranda/ARKitTutorial/tree/master/ARKitImageTutorial
